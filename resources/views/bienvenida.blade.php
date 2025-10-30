@@ -21,12 +21,29 @@
         </div>
     </div>
 
-    <!-- Card de Ciudades -->
+    <!-- Cards de módulos -->
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <!-- Card de Países y Provincias -->
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
-                    <div class="fs-1 text-primary mb-3">🌍</div>
+                    <div class="fs-1 text-success mb-3">🗺️</div>
+                    <h5 class="card-title fw-semibold">Países y Provincias</h5>
+                    <p class="card-text text-muted mb-4">
+                        Gestiona países y sus provincias/estados de forma organizada.
+                    </p>
+                    <a href="{{ route('paises-provincias.index') }}" class="btn btn-success">
+                        Ir a Países y Provincias
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card de Ciudades -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <div class="fs-1 text-primary mb-3">🌆</div>
                     <h5 class="card-title fw-semibold">Ciudades del Mundo</h5>
                     <p class="card-text text-muted mb-4">
                         Visualiza, registra, edita y elimina información de las ciudades del mundo.

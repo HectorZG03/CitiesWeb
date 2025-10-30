@@ -8,4 +8,5 @@ import './bootstrap-theme';
 import './buscador';
 import './ciudades';
 import './paises';
-import './modal-eliminar'; // Agregar esta línea
+import './modal-eliminar';
+import './paises-provincias'

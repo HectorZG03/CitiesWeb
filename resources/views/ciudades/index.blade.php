@@ -104,7 +104,7 @@
 
             <div class="card-body">
                 @if($ciudades->count() > 0)
-                    @include('layouts.buscador')
+                    @include('components.buscador')
 
                     <div class="table-responsive mt-3">
                         <table class="table table-striped table-hover align-middle">
