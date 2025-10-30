@@ -27,13 +27,11 @@ Route::middleware('auth')->group(function () {
     // Países y Provincias
     Route::get('/paises-provincias', [PaisProvinciaController::class, 'index'])->name('paises-provincias.index');
     
-    // Rutas para Países
-    Route::post('/paises-provincias/pais', [PaisProvinciaController::class, 'storePais'])->name('paises-provincias.pais.store');
+    // Rutas para Países (solo editar y eliminar)
     Route::put('/paises-provincias/pais/{id}', [PaisProvinciaController::class, 'updatePais'])->name('paises-provincias.pais.update');
     Route::delete('/paises-provincias/pais/{id}', [PaisProvinciaController::class, 'destroyPais'])->name('paises-provincias.pais.destroy');
     
-    // Rutas para Provincias
-    Route::post('/paises-provincias/provincia', [PaisProvinciaController::class, 'storeProvincia'])->name('paises-provincias.provincia.store');
+    // Rutas para Provincias (solo editar y eliminar)
     Route::put('/paises-provincias/provincia/{id}', [PaisProvinciaController::class, 'updateProvincia'])->name('paises-provincias.provincia.update');
     Route::delete('/paises-provincias/provincia/{id}', [PaisProvinciaController::class, 'destroyProvincia'])->name('paises-provincias.provincia.destroy');
         

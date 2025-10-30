@@ -45,9 +45,10 @@
                             <h5 class="mb-0"><i class="bi bi-flag"></i> Lista de Países</h5>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3">
-                                <input type="text" id="buscadorPaises" class="form-control" placeholder="🔍 Buscar país...">
-                            </div>
+                            @include('components.buscador', [
+                                'id' => 'buscadorPaises',
+                                'placeholder' => '🔍 Buscar país...'
+                            ])
 
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -106,9 +107,10 @@
                             <h5 class="mb-0"><i class="bi bi-map"></i> Lista de Provincias/Estados</h5>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3">
-                                <input type="text" id="buscadorProvincias" class="form-control" placeholder="🔍 Buscar provincia/estado...">
-                            </div>
+                            @include('components.buscador', [
+                                'id' => 'buscadorProvincias',
+                                'placeholder' => '🔍 Buscar provincia/estado...'
+                            ])
 
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -243,6 +245,5 @@
 
 @endsection
 
-@push('scripts')
-    @vite(['resources/js/paises-provincias.js'])
-@endpush
+
+@vite(['resources/js/paises-provincias.js'])
