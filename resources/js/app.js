@@ -9,4 +9,4 @@ import './buscador';
 import './ciudades';
 import './paises';
 import './modal-eliminar';
-import './paises-provincias'
+import './paises-provincias';

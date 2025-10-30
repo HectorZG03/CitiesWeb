@@ -1,6 +1,6 @@
-// JavaScript genérico para modales de eliminación
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar modales de eliminación
+
     const modalesEliminar = document.querySelectorAll('[id^="modalEliminar"]');
     
     modalesEliminar.forEach(modalElement => {

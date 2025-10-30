@@ -10,8 +10,20 @@ class PaisProvinciaController extends Controller
 {
     public function index()
     {
+        // Obtener todos los países con sus relaciones para los modales
         $paises = Pais::with('provinciasEstados.ciudades')->orderBy('nombre', 'asc')->get();
-        return view('paises_provincias.index', compact('paises'));
+        
+        // Paginación para países
+        $paisesPaginados = Pais::withCount('provinciasEstados')
+            ->orderBy('nombre', 'asc')
+            ->paginate(10, ['*'], 'paises_page');
+        
+        // Paginación para provincias
+        $provinciasPaginadas = ProvinciaEstado::with(['pais', 'ciudades'])
+            ->orderBy('nombre', 'asc')
+            ->paginate(10, ['*'], 'provincias_page');
+        
+        return view('paises_provincias.index', compact('paises', 'paisesPaginados', 'provinciasPaginadas'));
     }
 
     public function updatePais(Request $request, $id)

@@ -61,13 +61,13 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tablaPaises">
-                                        @forelse($paises as $pais)
+                                        @forelse($paisesPaginados as $pais)
                                             <tr>
                                                 <td>{{ $pais->id }}</td>
                                                 <td>{{ $pais->nombre }}</td>
                                                 <td>
                                                     <span class="badge bg-info">
-                                                        {{ $pais->provinciasEstados->count() }}
+                                                        {{ $pais->provincias_estados_count }}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -95,6 +95,11 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+
+                            {{-- Paginación de Países --}}
+                            <div class="mt-3">
+                                {{ $paisesPaginados->links('components.paginacion') }}
                             </div>
                         </div>
                     </div>
@@ -124,41 +129,48 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tablaProvincias">
-                                        @foreach($paises as $pais)
-                                            @foreach($pais->provinciasEstados as $provincia)
-                                                <tr>
-                                                    <td>{{ $provincia->id }}</td>
-                                                    <td>{{ $provincia->nombre }}</td>
-                                                    <td>{{ $pais->nombre }}</td>
-                                                    <td>
-                                                        <span class="badge bg-info">
-                                                            {{ $provincia->ciudades->count() }}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEditarProvincia"
-                                                                data-id="{{ $provincia->id }}"
-                                                                data-nombre="{{ $provincia->nombre }}"
-                                                                data-pais-id="{{ $pais->id }}"
-                                                                data-pais-nombre="{{ $pais->nombre }}">
-                                                            <i class="bi bi-pencil"></i> Editar
-                                                        </button>
-                                                        <button class="btn btn-danger btn-sm"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEliminarProvincia"
-                                                                data-id="{{ $provincia->id }}"
-                                                                data-elemento-nombre="{{ $provincia->nombre }} ({{ $pais->nombre }})"
-                                                                data-url-eliminar="{{ route('paises-provincias.provincia.destroy', $provincia->id) }}">
-                                                            <i class="bi bi-trash"></i> Eliminar
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endforeach
+                                        @forelse($provinciasPaginadas as $provincia)
+                                            <tr>
+                                                <td>{{ $provincia->id }}</td>
+                                                <td>{{ $provincia->nombre }}</td>
+                                                <td>{{ $provincia->pais->nombre }}</td>
+                                                <td>
+                                                    <span class="badge bg-info">
+                                                        {{ $provincia->ciudades->count() }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalEditarProvincia"
+                                                            data-id="{{ $provincia->id }}"
+                                                            data-nombre="{{ $provincia->nombre }}"
+                                                            data-pais-id="{{ $provincia->pais->id }}"
+                                                            data-pais-nombre="{{ $provincia->pais->nombre }}">
+                                                        <i class="bi bi-pencil"></i> Editar
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalEliminarProvincia"
+                                                            data-id="{{ $provincia->id }}"
+                                                            data-elemento-nombre="{{ $provincia->nombre }} ({{ $provincia->pais->nombre }})"
+                                                            data-url-eliminar="{{ route('paises-provincias.provincia.destroy', $provincia->id) }}">
+                                                        <i class="bi bi-trash"></i> Eliminar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted">No hay provincias/estados registradas</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+
+                            {{-- Paginación de Provincias --}}
+                            <div class="mt-3">
+                                {{ $provinciasPaginadas->links('components.paginacion') }}
                             </div>
                         </div>
                     </div>

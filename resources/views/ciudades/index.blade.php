@@ -2,7 +2,6 @@
 
 @section('title', 'Ciudades del Mundo')
 
-
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -146,6 +145,11 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{-- Componente de Paginación --}}
+                    <div class="mt-3">
+                        {{ $ciudades->links('components.paginacion') }}
+                    </div>
                 @else
                     <div class="alert alert-info mb-0">
                         No hay ciudades registradas aún. ¡Agrega la primera!
@@ -156,6 +160,7 @@
 
     </div>
 </div>
+
 {{-- Modales --}}
 @include('components.modal_actualizar')
 @include('components.modal-eliminar', [

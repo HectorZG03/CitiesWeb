@@ -11,7 +11,10 @@ class CiudadController extends Controller
 {
     public function index()
     {
-        $ciudades = Ciudad::with('provinciaEstado.pais')->orderBy('created_at', 'desc')->get();
+        $ciudades = Ciudad::with('provinciaEstado.pais')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // Paginación de 10 por página
+        
         return view('ciudades.index', compact('ciudades'));
     }
 

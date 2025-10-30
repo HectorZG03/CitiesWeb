@@ -28,31 +28,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // BUSCADOR PAÍSES
-    const buscadorPaises = document.getElementById('buscadorPaises');
-    if (buscadorPaises) {
-        buscadorPaises.addEventListener('keyup', function() {
-            const texto = this.value.toLowerCase();
-            const filas = document.querySelectorAll('#tablaPaises tr');
-            
-            filas.forEach(function(fila) {
-                const contenido = fila.textContent.toLowerCase();
-                fila.style.display = contenido.includes(texto) ? '' : 'none';
-            });
-        });
-    }
-
-    // BUSCADOR PROVINCIAS
-    const buscadorProvincias = document.getElementById('buscadorProvincias');
-    if (buscadorProvincias) {
-        buscadorProvincias.addEventListener('keyup', function() {
-            const texto = this.value.toLowerCase();
-            const filas = document.querySelectorAll('#tablaProvincias tr');
-            
-            filas.forEach(function(fila) {
-                const contenido = fila.textContent.toLowerCase();
-                fila.style.display = contenido.includes(texto) ? '' : 'none';
-            });
-        });
-    }
 });
