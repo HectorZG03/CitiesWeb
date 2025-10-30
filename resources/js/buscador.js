@@ -3,25 +3,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const buscadores = document.querySelectorAll('[id^="buscador"]');
     
     buscadores.forEach(function(buscador) {
+        let timeoutId = null;
+        
         buscador.addEventListener('keyup', function() {
             const texto = this.value.toLowerCase();
             
-            // Buscar la tabla más cercana al buscador
-            const tabla = buscador.closest('.card-body').querySelector('tbody');
+
+            clearTimeout(timeoutId);
             
-            if (tabla) {
-                const filas = tabla.querySelectorAll('tr');
+
+            timeoutId = setTimeout(function() {               
+                const url = new URL(window.location.href);
                 
-                filas.forEach(function(fila) {
-                    const contenido = fila.textContent.toLowerCase();
-                    
-                    if (contenido.includes(texto)) {
-                        fila.style.display = '';
-                    } else {
-                        fila.style.display = 'none';
+                if (texto.trim() !== '') {
+                    url.searchParams.set('buscar', texto);
+                } else {
+                    url.searchParams.delete('buscar');
+                }
+
+
+                fetch(url.toString(), {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
+                })
+                .then(response => response.text())
+                .then(html => {
+
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    
+                    const tablaActual = buscador.closest('.card-body').querySelector('tbody');
+                    
+
+                    const tablaId = tablaActual ? tablaActual.id : null;
+                    const nuevaTabla = tablaId ? doc.getElementById(tablaId) : doc.querySelector('tbody');
+                    
+                    if (tablaActual && nuevaTabla) {
+                        tablaActual.innerHTML = nuevaTabla.innerHTML;
+                    }
+
+                    window.history.pushState({}, '', url.toString());
+                })
+                .catch(error => {
+                    console.error('Error en la búsqueda:', error);
                 });
-            }
+            }, 500); // Esperar 500ms antes de buscar
         });
     });
 });
