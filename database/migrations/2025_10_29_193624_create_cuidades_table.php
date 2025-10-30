@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->foreignId('provincia_estado_id')->constrained('provincias_estados')->onDelete('cascade');
-            $table->integer('poblacion')->nullable();
             $table->timestamps();
         });
     }

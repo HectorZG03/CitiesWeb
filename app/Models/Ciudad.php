@@ -11,7 +11,7 @@ class Ciudad extends Model
 
     protected $table = 'ciudades';
     
-    protected $fillable = ['nombre', 'provincia_estado_id', 'poblacion'];
+    protected $fillable = ['nombre', 'provincia_estado_id'];
 
     public function provinciaEstado()
     {

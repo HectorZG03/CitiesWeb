@@ -21,7 +21,6 @@ class CiudadController extends Controller
             'pais_nombre' => 'required|string|max:255',
             'provincia_nombre' => 'required|string|max:255',
             'ciudad_nombre' => 'required|string|max:255',
-            'poblacion' => 'nullable|integer|min:0'
         ]);
 
         $nombrePais = trim($request->pais_nombre);
@@ -60,7 +59,6 @@ class CiudadController extends Controller
         Ciudad::create([
             'nombre' => $nombreCiudad,
             'provincia_estado_id' => $provincia->id,
-            'poblacion' => $request->poblacion
         ]);
 
         return redirect()->route('ciudades.index')->with('success', 'Ciudad registrada correctamente');
@@ -72,7 +70,6 @@ class CiudadController extends Controller
             'pais_nombre' => 'required|string|max:255',
             'provincia_nombre' => 'required|string|max:255',
             'ciudad_nombre' => 'required|string|max:255',
-            'poblacion' => 'nullable|integer|min:0'
         ]);
 
         $ciudad = Ciudad::findOrFail($id);
@@ -112,7 +109,6 @@ class CiudadController extends Controller
         $ciudad->update([
             'nombre' => $nombreCiudad,
             'provincia_estado_id' => $provincia->id,
-            'poblacion' => $request->poblacion
         ]);
 
         return redirect()->route('ciudades.index')->with('success', 'Ciudad actualizada correctamente');
@@ -126,4 +122,3 @@ class CiudadController extends Controller
         return redirect()->route('ciudades.index')->with('success', 'Ciudad eliminada correctamente');
     }
 }
-    

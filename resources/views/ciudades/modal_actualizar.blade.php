@@ -1,4 +1,3 @@
-
 <!-- Modal Actualizar Ciudad -->
 <div class="modal fade" id="modalActualizar" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -28,12 +27,6 @@
                         <div class="col-md-6 mb-3">
                             <label for="edit_ciudad_nombre" class="form-label">Ciudad</label>
                             <input type="text" class="form-control" id="edit_ciudad_nombre" name="ciudad_nombre" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="edit_poblacion" class="form-label">Población</label>
-                            <input type="number" class="form-control" id="edit_poblacion" name="poblacion" min="0">
                         </div>
                     </div>
                 </div>
