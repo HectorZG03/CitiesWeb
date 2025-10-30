@@ -2,13 +2,6 @@
 
 @section('title', 'Ciudades del Mundo')
 
-{{-- Modales --}}
-@include('ciudades.modal_actualizar')
-@include('components.modal-eliminar', [
-    'modalId' => 'modalEliminarCiudad',
-    'titulo' => 'Confirmar Eliminación de Ciudad',
-    'mensajeAdicional' => 'Se eliminará la ciudad y no se podrá recuperar.'
-])
 
 @section('content')
 <div class="row">
@@ -163,4 +156,12 @@
 
     </div>
 </div>
+{{-- Modales --}}
+@include('components.modal_actualizar')
+@include('components.modal-eliminar', [
+    'modalId' => 'modalEliminarCiudad',
+    'titulo' => 'Confirmar Eliminación de Ciudad',
+    'mensajeAdicional' => 'Se eliminará la ciudad y no se podrá recuperar.'
+])
+
 @endsection

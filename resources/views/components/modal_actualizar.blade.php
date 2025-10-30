@@ -15,7 +15,7 @@
                             <label for="edit_pais_nombre" class="form-label">País</label>
                             <select class="form-select" id="edit_pais_nombre" name="pais_nombre" required>
                                 <option value="">Seleccione un país</option>
-                                <!-- Las opciones se cargarán via JavaScript -->
+                                <!-- Las opciones se cargan via JavaScript -->
                             </select>
                         </div>
                     </div>
