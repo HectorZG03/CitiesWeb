@@ -42,7 +42,7 @@
 
                     <div class="row g-3">
                         <!-- País -->
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="pais_nombre" class="form-label">País</label>
                             <select id="pais_nombre" name="pais_nombre"
                                     class="form-select @error('pais_nombre') is-invalid @enderror"
@@ -50,35 +50,35 @@
                                 <option value="">Seleccione un país</option>
                                 <!-- Opciones cargadas por JS -->
                             </select>
-                            <div class="form-text">Los países se cargan desde la API de REST COUNTRIES</div>
+                            <div class="form-text">Los países se cargan desde Country State City API</div>
                         </div>
 
-                        <!-- Provincia -->
-                        <div class="col-md-6">
+                        <!-- Provincia/Estado -->
+                        <div class="col-md-4">
                             <label for="provincia_nombre" class="form-label">Provincia/Estado</label>
-                            <input type="text"
-                                   id="provincia_nombre"
-                                   name="provincia_nombre"
-                                   class="form-control @error('provincia_nombre') is-invalid @enderror"
-                                   value="{{ old('provincia_nombre') }}"
-                                   placeholder="Ej: Querétaro"
-                                   required>
+                            <select id="provincia_nombre" name="provincia_nombre"
+                                    class="form-select @error('provincia_nombre') is-invalid @enderror"
+                                    required
+                                    disabled>
+                                <option value="">Primero seleccione un país</option>
+                                <!-- Opciones cargadas por JS -->
+                            </select>
                         </div>
 
                         <!-- Ciudad -->
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="ciudad_nombre" class="form-label">Ciudad</label>
-                            <input type="text"
-                                   id="ciudad_nombre"
-                                   name="ciudad_nombre"
-                                   class="form-control @error('ciudad_nombre') is-invalid @enderror"
-                                   value="{{ old('ciudad_nombre') }}"
-                                   placeholder="Ej: Santiago de Querétaro"
-                                   required>
+                            <select id="ciudad_nombre" name="ciudad_nombre"
+                                    class="form-select @error('ciudad_nombre') is-invalid @enderror"
+                                    required
+                                    disabled>
+                                <option value="">Primero seleccione país y estado</option>
+                                <!-- Opciones cargadas por JS -->
+                            </select>
                         </div>
 
                         <!-- Botón Guardar -->
-                        <div class="col-md-3 d-flex align-items-end">
+                        <div class="col-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-sm btn-primary px-4">
                                 <i class="bi bi-save me-1"></i> Guardar
                             </button>
