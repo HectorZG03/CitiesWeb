@@ -8,84 +8,80 @@ use Illuminate\Http\Request;
 
 class PaisProvinciaController extends Controller
 {
+    /**
+     * Mostrar listado de países y provincias/estados con búsqueda y paginación
+     */
     public function index(Request $request)
     {
         $buscar = $request->input('buscar');
-        
-        // Query para países
+
+        // Paises
         $queryPaises = Pais::withCount('provinciasEstados');
         if ($buscar) {
             $queryPaises->where('nombre', 'like', "%{$buscar}%");
         }
-        $paisesPaginados = $queryPaises->orderBy('nombre')->paginate(10, ['*'], 'page_paises');
-        
-        // Mantener búsqueda en paginación
-        if ($buscar) {
-            $paisesPaginados->appends(['buscar' => $buscar]);
-        }
-        
-        // Query para provincias
+        $paisesPaginados = $queryPaises->orderBy('nombre')
+                                       ->paginate(10, ['*'], 'page_paises')
+                                       ->appends($buscar ? ['buscar' => $buscar] : []);
+
+        // Provincias
         $queryProvincias = ProvinciaEstado::with(['pais', 'ciudades']);
         if ($buscar) {
-            $queryProvincias->where(function($q) use ($buscar) {
+            $queryProvincias->where(function ($q) use ($buscar) {
                 $q->where('nombre', 'like', "%{$buscar}%")
-                  ->orWhereHas('pais', function($paisQ) use ($buscar) {
-                      $paisQ->where('nombre', 'like', "%{$buscar}%");
-                  });
+                  ->orWhereHas('pais', fn($paisQ) => $paisQ->where('nombre', 'like', "%{$buscar}%"));
             });
         }
-        $provinciasPaginadas = $queryProvincias->orderBy('nombre')->paginate(10, ['*'], 'page_provincias');
-        
-        // Mantener búsqueda en paginación
-        if ($buscar) {
-            $provinciasPaginadas->appends(['buscar' => $buscar]);
-        }
-        
-        // Obtener todos los países para los modales
+        $provinciasPaginadas = $queryProvincias->orderBy('nombre')
+                                               ->paginate(10, ['*'], 'page_provincias')
+                                               ->appends($buscar ? ['buscar' => $buscar] : []);
+
+        // Todos los países para modales
         $paises = Pais::orderBy('nombre')->get();
-        
-        // Si es una petición AJAX, devolver solo la vista
-        if ($request->ajax() || $request->wantsJson()) {
-            return view('paises_provincias.index', compact('paisesPaginados', 'provinciasPaginadas', 'paises'));
-        }
-        
+
         return view('paises_provincias.index', compact('paisesPaginados', 'provinciasPaginadas', 'paises'));
     }
 
+    /**
+     * Actualizar país
+     */
     public function updatePais(Request $request, $id)
     {
         $validated = $request->validate([
             'nombre' => 'required|string|max:255|unique:paises,nombre,' . $id,
         ]);
 
-        $pais = Pais::findOrFail($id);
-        $pais->update($validated);
+        Pais::findOrFail($id)->update($validated);
 
         return redirect()->route('paises-provincias.index')
-            ->with('success', 'País actualizado correctamente');
+                         ->with('success', 'País actualizado correctamente');
     }
 
+    /**
+     * Eliminar país
+     */
     public function destroyPais($id)
     {
         try {
             $pais = Pais::findOrFail($id);
-            
-            // Verificar si tiene provincias asociadas
+
             if ($pais->provinciasEstados()->count() > 0) {
                 return redirect()->route('paises-provincias.index')
-                    ->with('error', 'No se puede eliminar el país porque tiene provincias/estados asociados');
+                                 ->with('error', 'No se puede eliminar el país porque tiene provincias/estados asociados');
             }
-            
-            $pais->delete();
 
+            $pais->delete();
             return redirect()->route('paises-provincias.index')
-                ->with('success', 'País eliminado correctamente');
+                             ->with('success', 'País eliminado correctamente');
         } catch (\Exception $e) {
             return redirect()->route('paises-provincias.index')
-                ->with('error', 'Error al eliminar el país');
+                             ->with('error', 'Error al eliminar el país: ' . $e->getMessage());
         }
     }
 
+    /**
+     * Actualizar provincia/estado
+     */
     public function updateProvincia(Request $request, $id)
     {
         $validated = $request->validate([
@@ -93,31 +89,31 @@ class PaisProvinciaController extends Controller
             'pais_id' => 'required|exists:paises,id',
         ]);
 
-        $provincia = ProvinciaEstado::findOrFail($id);
-        $provincia->update($validated);
+        ProvinciaEstado::findOrFail($id)->update($validated);
 
         return redirect()->route('paises-provincias.index')
-            ->with('success', 'Provincia/Estado actualizado correctamente');
+                         ->with('success', 'Provincia/Estado actualizado correctamente');
     }
 
+    /**
+     * Eliminar provincia/estado
+     */
     public function destroyProvincia($id)
     {
         try {
             $provincia = ProvinciaEstado::findOrFail($id);
-            
-            // Verificar si tiene ciudades asociadas
+
             if ($provincia->ciudades()->count() > 0) {
                 return redirect()->route('paises-provincias.index')
-                    ->with('error', 'No se puede eliminar la provincia/estado porque tiene ciudades asociadas');
+                                 ->with('error', 'No se puede eliminar la provincia/estado porque tiene ciudades asociadas');
             }
-            
-            $provincia->delete();
 
+            $provincia->delete();
             return redirect()->route('paises-provincias.index')
-                ->with('success', 'Provincia/Estado eliminado correctamente');
+                             ->with('success', 'Provincia/Estado eliminado correctamente');
         } catch (\Exception $e) {
             return redirect()->route('paises-provincias.index')
-                ->with('error', 'Error al eliminar la provincia/estado');
+                             ->with('error', 'Error al eliminar la provincia/estado: ' . $e->getMessage());
         }
     }
 }
