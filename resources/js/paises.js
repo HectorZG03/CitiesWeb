@@ -1,13 +1,14 @@
 // Función para cargar países desde la API
 async function cargarPaises(selectElement, paisSeleccionado = '') {
     try {
-        // Mostrar estado de carga
+        // Mostrar la carga en el select
         selectElement.innerHTML = '<option value="">Cargando países...</option>';
         
+        //Esta api no require de una API KEY
         const response = await fetch('https://restcountries.com/v3.1/all?fields=name,translations');
         const countries = await response.json();
         
-        // Ordenar países alfabéticamente por nombre en español
+
         countries.sort((a, b) => {
             const nameA = a.translations.spa?.common || a.name.common;
             const nameB = b.translations.spa?.common || b.name.common;
@@ -23,7 +24,6 @@ async function cargarPaises(selectElement, paisSeleccionado = '') {
             option.value = countryName;
             option.textContent = countryName;
             
-            // Seleccionar el país si coincide con el valor proporcionado
             if (countryName === paisSeleccionado) {
                 option.selected = true;
             }

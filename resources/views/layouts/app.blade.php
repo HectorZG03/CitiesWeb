@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title', 'Dashboard')</title>
     
-    @vite(['resources/js/app.js', 'resources/css/index.css'])
+    @vite(['resources/js/app.js'])
     
     <style>
         .dashboard-container {

@@ -7,4 +7,4 @@ import '../css/index.css';
 import './bootstrap-theme';
 import './buscador';
 import './ciudades';
-import './paises'; // ← Agregar esta línea
+import './paises';

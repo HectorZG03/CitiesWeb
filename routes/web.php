@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/ciudades/{id}', [CiudadController::class, 'update'])->name('ciudades.update');
     Route::delete('/ciudades/{id}', [CiudadController::class, 'destroy'])->name('ciudades.destroy');
 
-    //Paises
+    //Paises API REST
     Route::get('/paises/rest', [PaisController::class, 'obtenerPaises'])->name('paises.rest');
         
     // Logout
