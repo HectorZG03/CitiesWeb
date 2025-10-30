@@ -22,20 +22,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Modal eliminar
-    const modalEliminar = document.getElementById('modalEliminar');
-    
-    if (modalEliminar) {
-        modalEliminar.addEventListener('show.bs.modal', function(event) {
-            const button = event.relatedTarget;
-            
-            const id = button.getAttribute('data-id');
-            const ciudad = button.getAttribute('data-ciudad');
-            
-            document.getElementById('ciudad_eliminar').textContent = ciudad;
-            
-            const form = document.getElementById('formEliminar');
-            form.action = `/ciudades/${id}`;
-        });
-    }
 });

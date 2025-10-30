@@ -4,7 +4,14 @@
 @section('title', 'Ciudades del Mundo')
 
 @include('ciudades.modal_actualizar')
-@include('ciudades.modal_eliminar')
+
+
+{{-- Usar el componente reutilizable --}}
+@include('components.modal-eliminar', [
+    'modalId' => 'modalEliminarCiudad',
+    'titulo' => 'Confirmar Eliminación de Ciudad',
+    'mensajeAdicional' => 'Se eliminará la ciudad y no se podrá recuperar.'
+])
 
 @section('content')
     <div class="row">
@@ -150,9 +157,10 @@
                                                 <button type="button" 
                                                         class="btn btn-sm btn-danger"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminar"
+                                                        data-bs-target="#modalEliminarCiudad"
                                                         data-id="{{ $ciudad->id }}"
-                                                        data-ciudad="{{ $ciudad->nombre }}">
+                                                        data-elemento-nombre="la ciudad '{{ $ciudad->nombre }}'"
+                                                        data-url-eliminar="{{ route('ciudades.destroy', $ciudad->id) }}">
                                                     Eliminar
                                                 </button>
                                             </td>
