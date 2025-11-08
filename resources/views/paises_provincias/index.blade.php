@@ -10,6 +10,7 @@
                 <i class="bi bi-globe-americas"></i> Gestión de Países y Provincias/Estados
             </h2>
 
+            {{-- Mensajes de error de validación --}}
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <ul class="mb-0">
@@ -21,15 +22,45 @@
                 </div>
             @endif
 
+            {{-- Mensajes de éxito --}}
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill"></i> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
+            {{-- Mensajes de error --}}
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
+            @php
+                $tabActiva = request()->get('tab', 'paises'); // Por defecto 'paises'
+            @endphp
+
             <!-- Tabs -->
             <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="paises-tab" data-bs-toggle="tab" data-bs-target="#paises" type="button">
+                    <button class="nav-link {{ $tabActiva === 'paises' ? 'active' : '' }}" 
+                            id="paises-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#paises" 
+                            type="button"
+                            onclick="cambiarTab('paises')">
                         <i class="bi bi-flag"></i> Países
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="provincias-tab" data-bs-toggle="tab" data-bs-target="#provincias" type="button">
+                    <button class="nav-link {{ $tabActiva === 'provincias' ? 'active' : '' }}" 
+                            id="provincias-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#provincias" 
+                            type="button"
+                            onclick="cambiarTab('provincias')">
                         <i class="bi bi-map"></i> Provincias/Estados
                     </button>
                 </li>
@@ -39,7 +70,7 @@
             <div class="tab-content" id="myTabContent">
                 
                 <!-- TAB PAÍSES -->
-                <div class="tab-pane fade show active" id="paises" role="tabpanel">
+                <div class="tab-pane fade {{ $tabActiva === 'paises' ? 'show active' : '' }}" id="paises" role="tabpanel">
                     <div class="card shadow-sm">
                         <div class="card-header bg-primary text-white">
                             <h5 class="mb-0"><i class="bi bi-flag"></i> Lista de Países</h5>
@@ -99,14 +130,14 @@
 
                             {{-- Paginación de Países --}}
                             <div class="mt-3">
-                                {{ $paisesPaginados->links('components.paginacion') }}
+                                {{ $paisesPaginados->appends(['tab' => 'paises'])->links('components.paginacion') }}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- TAB PROVINCIAS/ESTADOS -->
-                <div class="tab-pane fade" id="provincias" role="tabpanel">
+                <div class="tab-pane fade {{ $tabActiva === 'provincias' ? 'show active' : '' }}" id="provincias" role="tabpanel">
                     <div class="card shadow-sm">
                         <div class="card-header bg-success text-white">
                             <h5 class="mb-0"><i class="bi bi-map"></i> Lista de Provincias/Estados</h5>
@@ -170,7 +201,7 @@
 
                             {{-- Paginación de Provincias --}}
                             <div class="mt-3">
-                                {{ $provinciasPaginadas->links('components.paginacion') }}
+                                {{ $provinciasPaginadas->appends(['tab' => 'provincias'])->links('components.paginacion') }}
                             </div>
                         </div>
                     </div>
@@ -196,6 +227,15 @@
     'titulo' => 'Eliminar Provincia/Estado',
     'mensajeAdicional' => 'No se puede eliminar si tiene ciudades asociadas.'
 ])
+
+<script>
+    // Función para cambiar la pestaña y actualizar la URL
+    function cambiarTab(tab) {
+        const url = new URL(window.location);
+        url.searchParams.set('tab', tab);
+        window.history.pushState({}, '', url);
+    }
+</script>
 
 @endsection
 

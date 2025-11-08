@@ -1,3 +1,5 @@
+//MOdales para paises provincias
+
 document.addEventListener('DOMContentLoaded', function() {
     
     // MODAL EDITAR PAÍS

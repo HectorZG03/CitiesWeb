@@ -24,10 +24,10 @@ class AuthController extends Controller
             'password.required' => 'El password es requerido',
         ]);
 
-        // Solo tomamos las credenciales (sin "remember")
+
         $credentials = $request->only('email', 'password');
 
-        // Intentar iniciar sesión sin "remember me"
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => {
                     console.error('Error en la búsqueda:', error);
                 });
-            }, 500); // Esperar 500ms antes de buscar
+            }, 500);
         });
     });
 });

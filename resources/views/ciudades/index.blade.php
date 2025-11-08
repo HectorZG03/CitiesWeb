@@ -6,7 +6,6 @@
 <div class="row">
     <div class="col-12">
 
-        <!-- Título principal -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0">🌎 Ciudades del Mundo</h2>
         </div>

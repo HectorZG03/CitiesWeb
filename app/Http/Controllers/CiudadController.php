@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class CiudadController extends Controller
 {
-    /**
-     * Mostrar listado de ciudades con búsqueda y paginación
-     */
+
     public function index(Request $request)
     {
         $buscar = $request->input('buscar');
@@ -36,9 +34,6 @@ class CiudadController extends Controller
         return view('ciudades.index', compact('ciudades'));
     }
 
-    /**
-     * Guardar nueva ciudad
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -58,9 +53,7 @@ class CiudadController extends Controller
                          ->with('success', 'Ciudad registrada correctamente');
     }
 
-    /**
-     * Actualizar ciudad existente
-     */
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -82,9 +75,7 @@ class CiudadController extends Controller
                          ->with('success', 'Ciudad actualizada correctamente');
     }
 
-    /**
-     * Eliminar ciudad
-     */
+
     public function destroy($id)
     {
         try {
@@ -97,9 +88,6 @@ class CiudadController extends Controller
         }
     }
 
-    /**
-     * Método privado para crear país y provincia si no existen
-     */
     private function crearPaisYProvincia(string $paisNombre, string $provinciaNombre)
     {
         $pais = Pais::firstOrCreate(['nombre' => $paisNombre]);

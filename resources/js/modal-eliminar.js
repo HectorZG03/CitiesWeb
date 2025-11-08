@@ -1,4 +1,5 @@
 
+//modal usado en todas las vistas para eliminacion
 document.addEventListener('DOMContentLoaded', function() {
 
     const modalesEliminar = document.querySelectorAll('[id^="modalEliminar"]');

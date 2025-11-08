@@ -1,4 +1,4 @@
-// Escuchar evento cuando el modal de actualizar se abre
+// Escuchar evento cuando el modal de actualizar se abre parala creacion de ciudades
 document.addEventListener('DOMContentLoaded', function() {
     const modalElement = document.getElementById('modalActualizar');
     

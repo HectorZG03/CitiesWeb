@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 
 class PaisProvinciaController extends Controller
 {
-    /**
-     * Mostrar listado de países y provincias/estados con búsqueda y paginación
-     */
+   
     public function index(Request $request)
     {
         $buscar = $request->input('buscar');

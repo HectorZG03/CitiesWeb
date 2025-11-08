@@ -4,7 +4,7 @@ async function cargarPaises(selectElement, paisSeleccionado = '') {
         // Mostrar la carga en el select
         selectElement.innerHTML = '<option value="">Cargando países...</option>';
         
-        //Esta api no require de una API KEY
+        //Esta api no require de una API KEY solo carga paises
         const response = await fetch('https://restcountries.com/v3.1/all?fields=name,translations');
         const countries = await response.json();
         
@@ -37,7 +37,7 @@ async function cargarPaises(selectElement, paisSeleccionado = '') {
     }
 }
 
-// Cargar países cuando el DOM esté listo
+
 document.addEventListener('DOMContentLoaded', function() {
     const selectPais = document.getElementById('pais_nombre');
     const selectEditPais = document.getElementById('edit_pais_nombre');
